@@ -8,10 +8,10 @@ const nextConfig: NextConfig = {
   serverExternalPackages: ["unzipper"],
   env: {
     NEXT_PUBLIC_BASE_PATH: BASE_PATH,
-    NEXT_PUBLIC_API_URL: "https://your-backend-domain.com/api",
+    NEXT_PUBLIC_API_URL: "https://crm.whatscloud.shop/api",
     NEXT_PUBLIC_API_BASE_URL: BASE_PATH + "/api",
-    NEXT_PUBLIC_STORAGE_URL: "https://your-backend-domain.com",
-    NEXT_PUBLIC_FRONT_URL: "https://your-front-domain",
+    NEXT_PUBLIC_STORAGE_URL: "https://crm.whatscloud.shop",
+    NEXT_PUBLIC_FRONT_URL: "https://whatscloud.shop",
   },
   redirects: async () => {
     const list: any[] = [
@@ -40,6 +40,10 @@ const nextConfig: NextConfig = {
       {
         protocol: "https",
         hostname: "ui-avatars.com",
+      },
+      {
+        protocol: "https",
+        hostname: "crm.whatscloud.shop",
       },
     ],
   },

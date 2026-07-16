@@ -1,17 +1,16 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 "use client";
 
-import { use } from "react";
+import RoleForm from "@/src/components/roles/components/RoleForm";
+import { ROUTES } from "@/src/constants";
+import {
+  useGetRoleByIdQuery,
+  useUpdateRoleMutation,
+} from "@/src/redux/api/roleApi";
+import { EditRolePageProps } from "@/src/types/role";
+import { Loader2 } from "lucide-react";
 import { useRouter } from "next/navigation";
 import { toast } from "sonner";
-import { useGetRoleByIdQuery, useUpdateRoleMutation } from "@/src/redux/api/roleApi";
-import RoleForm from "@/src/components/roles/components/RoleForm";
-import { Loader2 } from "lucide-react";
-import { ROUTES } from "@/src/constants";
-
-interface EditRolePageProps {
-  id: string;
-}
 
 const EditRole = ({ id }: EditRolePageProps) => {
   const router = useRouter();
@@ -38,7 +37,12 @@ const EditRole = ({ id }: EditRolePageProps) => {
 
   return (
     <div>
-      <RoleForm mode="edit" initialValues={data?.data} onSubmit={handleSubmit} isLoading={isLoading} />
+      <RoleForm
+        mode="edit"
+        initialValues={data?.data}
+        onSubmit={handleSubmit}
+        isLoading={isLoading}
+      />
     </div>
   );
 };

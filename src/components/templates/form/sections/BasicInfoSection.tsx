@@ -1,6 +1,7 @@
 "use client";
 
 import { SECTOR_LABELS, SECTOR_TEMPLATE_CATEGORIES, SectorKey, SECTORS } from "@/src/data/sectorTemplateCategory";
+import { LANGUAGES } from "@/src/data/templates";
 import { Button } from "@/src/elements/ui/button";
 import { Input } from "@/src/elements/ui/input";
 import { Label } from "@/src/elements/ui/label";
@@ -10,12 +11,7 @@ import { BasicInfoSectionProps, MarketingTypeOption } from "@/src/types/template
 import { BookOpen, Facebook, Gift, Image as ImageIcon, Instagram, Layout, MessageSquare, Phone, Send, Shield, ShoppingBag, Tag, Ticket } from "lucide-react";
 import { useTranslation } from "react-i18next";
 
-const LANGUAGES = [
-  { label: "English (US)", value: "en_US" },
-  { label: "English (UK)", value: "en_GB" },
-  { label: "Hindi", value: "hi" },
-  { label: "Gujarati", value: "gu" },
-];
+
 
 export const BasicInfoSection = ({
   language,

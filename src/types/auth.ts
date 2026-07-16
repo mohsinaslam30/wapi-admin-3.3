@@ -1,4 +1,3 @@
-import { SidePanelData } from "./authPageSetup";
 
 export interface User {
   id: string;

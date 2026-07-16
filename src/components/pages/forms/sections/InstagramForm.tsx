@@ -88,7 +88,7 @@ export const InstagramForm: React.FC<SharedFormProps> = ({
               {renderTextInput(["features", "badge"], "Capabilities Badge", "Features")}
               {renderTextInput(["features", "title"], "Capabilities Main Title", "Grow Your Brand on Instagram Automatically")}
             </div>
-            <label className={labelClass}>Capabilities Details</label>
+            <Label className={labelClass}>Capabilities Details</Label>
             {featList.map((feat: any, idx: number) => (
               <div key={idx} className="sm:p-5 p-4 rounded-lg border border-slate-200 dark:border-(--card-border-color) bg-slate-50/50 dark:bg-(--dark-sidebar) space-y-3 relative">
                 <Button

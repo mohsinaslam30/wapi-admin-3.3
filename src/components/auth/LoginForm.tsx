@@ -20,39 +20,32 @@ import { DynamicLogo } from "./common/DynamicLogo";
 import { t } from "i18next";
 
 const API_URL = process.env.NEXT_PUBLIC_API_URL ?? "";
-const STORAGE_URL = process.env.NEXT_PUBLIC_STORAGE_URL ?? "";
 
 import { getUrlWithBasePath } from "../../utils";
 
 const resolveUrl = (url?: string): string => {
   if (!url) return "";
+  if (url.startsWith("http") || url.startsWith("https") || url.startsWith("data:")) return url;
   
-  // Replace backslashes with forward slashes for cross-platform compatibility
-  const normalizedUrl = url.replace(/\\/g, "/");
-
-  if (normalizedUrl.startsWith("http://") || normalizedUrl.startsWith("https://") || normalizedUrl.startsWith("data:")) {
-    return normalizedUrl;
+  const baseUrl = (API_URL || "").endsWith("/") ? API_URL.slice(0, -1) : API_URL;
+  
+  if (url.startsWith("/uploads/")) {
+    return `${baseUrl}${url}`;
   }
-
-  const baseUrl = (STORAGE_URL || "").endsWith("/") ? STORAGE_URL.slice(0, -1) : STORAGE_URL;
-
-  if (normalizedUrl.startsWith("/uploads/")) {
-    return `${baseUrl}${normalizedUrl}`;
+  if (url.startsWith("uploads/")) {
+    return `${baseUrl}/${url}`;
   }
-  if (normalizedUrl.startsWith("uploads/")) {
-    return `${baseUrl}/${normalizedUrl}`;
+  if (url.startsWith("/")) {
+    return getUrlWithBasePath(url);
   }
-  if (normalizedUrl.startsWith("/")) {
-    return getUrlWithBasePath(normalizedUrl);
-  }
-  return getUrlWithBasePath(`/${normalizedUrl}`);
+  return getUrlWithBasePath(`/${url}`);
 };
 
 const DEFAULT_FAVICON = getUrlWithBasePath("/assets/logos/sidebarLogo.png");
 
 function applyFavicon(href: string) {
-  if (typeof window === "undefined" || !href) return;
-  const links = document.querySelectorAll("link[rel='icon'], link[rel='shortcut icon']");
+  if (typeof window === "undefined") return;
+  const links = document.querySelectorAll("link[rel*='icon']");
   if (links.length > 0) {
     links.forEach((link: any) => {
       if (link.href !== href) link.href = href;

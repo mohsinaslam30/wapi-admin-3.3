@@ -22,7 +22,14 @@ import CountrySelect from "@/src/shared/CountrySelect";
 import { CreateUserPayload, UpdateUserPayload } from "@/src/types/store";
 import { AddUserPageProps, FormState } from "@/src/types/user";
 import { Country } from "@/src/utils/countries";
-import { ArrowLeft, Plus, Save, User as UserIcon } from "lucide-react";
+import {
+  ArrowLeft,
+  Eye,
+  EyeOff,
+  Plus,
+  Save,
+  User as UserIcon,
+} from "lucide-react";
 import { useRouter } from "next/navigation";
 import { useMemo, useState } from "react";
 import { toast } from "sonner";
@@ -40,6 +47,7 @@ const AddUserPage = ({ id }: AddUserPageProps) => {
   const { data: rolesData } = useGetAllRolesQuery({});
   const [createUser, { isLoading: isCreating }] = useCreateUserMutation();
   const [updateUser, { isLoading: isUpdating }] = useUpdateUserMutation();
+  const [showPassword, setShowPassword] = useState(false);
 
   const roles = rolesData?.data?.roles || [];
   const isSubmitting = isCreating || isUpdating;
@@ -212,17 +220,28 @@ const AddUserPage = ({ id }: AddUserPageProps) => {
                 />
               </div>
               {!isEditMode && (
-                <div className="space-y-1.5 flex flex-col md:col-span-2">
+                <div className="space-y-1.5 flex flex-col md:col-span-2 relative">
                   <Label className="text-sm font-medium text-gray-700 dark:text-gray-300">
                     Account Password <span className="text-red-500">*</span>
                   </Label>
                   <Input
-                    type="password"
+                    type={showPassword ? "text" : "password"}
                     value={form.password}
                     onChange={(e) => set("password", e.target.value)}
                     placeholder="Min. 8 characters"
                     className="h-11 bg-(--input-color) rounded-lg p-3 dark:bg-page-body border-(--input-border-color) dark:border-zinc-700"
                   />
+                  <Button
+                    type="button"
+                    onClick={() => setShowPassword(!showPassword)}
+                    className="absolute bg-transparent shadow-none right-1 -bottom-2 -translate-y-1/2 text-slate-400 hover:text-slate-600 transition-colors hover:bg-transparent"
+                  >
+                    {showPassword ? (
+                      <EyeOff className="w-5 h-5" />
+                    ) : (
+                      <Eye className="w-5 h-5" />
+                    )}
+                  </Button>
                 </div>
               )}
               <div className="space-y-1.5 flex flex-col">
@@ -316,15 +335,17 @@ const AddUserPage = ({ id }: AddUserPageProps) => {
                     <SelectValue placeholder="Select role" />
                   </SelectTrigger>
                   <SelectContent className="dark:bg-(--card-color) dark:border-(--card-border-color)">
-                    {roles.map((role) => (
-                      <SelectItem
-                        key={role._id}
-                        value={role._id}
-                        className="dark:hover:bg-(--table-hover) cursor-pointer"
-                      >
-                        {role.name}
-                      </SelectItem>
-                    ))}
+                    {roles
+                      .filter((role) => role.name?.toLowerCase() !== "agent")
+                      .map((role) => (
+                        <SelectItem
+                          key={role._id}
+                          value={role._id}
+                          className="dark:hover:bg-(--table-hover) cursor-pointer"
+                        >
+                          {role.name}
+                        </SelectItem>
+                      ))}
                   </SelectContent>
                 </Select>
               </div>

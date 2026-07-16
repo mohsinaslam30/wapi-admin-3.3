@@ -138,7 +138,7 @@ const AuthPageSetupContainer = () => {
                   const isActive = activeTab === tab.id;
                   const Icon = tab.icon;
                   return (
-                    <button
+                    <Button variant="unstyled"
                       key={tab.id}
                       onClick={() => setActiveTab(tab.id)}
                       className={`
@@ -169,7 +169,7 @@ const AuthPageSetupContainer = () => {
                       {isActive && (
                         <div className="absolute right-0 top-0 bottom-0 w-1.5 bg-white/30 hidden [@media(min-width:1421px)]:block" />
                       )}
-                    </button>
+                    </Button>
                   );
                 })}
               </div>

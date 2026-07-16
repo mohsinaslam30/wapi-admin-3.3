@@ -117,7 +117,7 @@ export const FacebookForm: React.FC<SharedFormProps> = ({
                       />
                     </div>
                     <div>
-                      <label className="block text-xs font-bold text-slate-650 dark:text-gray-400 mb-1.5">Image Asset</label>
+                      <Label className="block text-xs font-bold text-slate-650 dark:text-gray-400 mb-1.5">Image Asset</Label>
                       <PageMediaUploadField
                         value={feat?.image || ""}
                         onChange={(uploadedUrl) => handleFeatChange(idx, "image", uploadedUrl)}

@@ -72,9 +72,9 @@ export const SidePanelForm = ({ data, onChange, hideBadge }: SidePanelFormProps)
         <div className="grid grid-cols-1 gap-4">
           {items.map((bullet, idx) => (
             <div key={idx} className="p-4 bg-gray-50/50 dark:bg-page-body border border-gray-100 dark:border-(--card-border-color) rounded-xl relative group transition-all hover:bg-white dark:hover:bg-(--dark-body) hover:shadow-sm">
-              <button onClick={() => removeBullet(idx, type)} className="absolute -top-2 -right-2 w-7 h-7 bg-white dark:bg-(--card-color) text-gray-400 hover:text-red-500 rounded-lg flex items-center justify-center opacity-0 group-hover:opacity-100 transition-all shadow-sm border border-gray-100 dark:border-none z-10">
+              <Button variant="unstyled" onClick={() => removeBullet(idx, type)} className="absolute -top-2 -right-2 w-7 h-7 bg-white dark:bg-(--card-color) text-gray-400 hover:text-red-500 rounded-lg flex items-center justify-center opacity-0 group-hover:opacity-100 transition-all shadow-sm border border-gray-100 dark:border-none z-10">
                 <Trash2 className="w-3.5 h-3.5" />
-              </button>
+              </Button>
 
               <div className="space-y-4">
                 <div className="space-y-2 flex flex-col">
@@ -85,9 +85,9 @@ export const SidePanelForm = ({ data, onChange, hideBadge }: SidePanelFormProps)
                 <div className="space-y-2">
                   <div className="flex items-center justify-between">
                     <Label className="text-sm font-bold text-gray-400">Points</Label>
-                    <button onClick={() => addPoint(idx, type)} className="text-[11px] font-bold text-primary hover:underline">
+                    <Button variant="unstyled" onClick={() => addPoint(idx, type)} className="text-[11px] font-bold text-primary hover:underline">
                       + Add Point
-                    </button>
+                    </Button>
                   </div>
                   <div className="space-y-2">
                     {bullet.points.map((point, pIdx) => (

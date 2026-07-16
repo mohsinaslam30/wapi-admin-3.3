@@ -171,7 +171,7 @@ const PricingForm = ({ data, onChange }: PricingFormProps) => {
                               "w-6 h-6 rounded-full flex items-center justify-center transition-all",
                               isSelected
                                 ? "bg-primary text-white scale-110"
-                                : "bg-gray-100 opacity-20",
+                                : "bg-gray-100 dark:bg-(--table-hover)",
                             )}
                           >
                             <Check className="w-3.5 h-3.5" />

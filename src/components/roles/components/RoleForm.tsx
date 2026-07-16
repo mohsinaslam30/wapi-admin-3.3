@@ -1,30 +1,29 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 "use client";
 
+import { ROUTES } from "@/src/constants";
+import { Badge } from "@/src/elements/ui/badge";
 import { Button } from "@/src/elements/ui/button";
 import { Input } from "@/src/elements/ui/input";
 import { Label } from "@/src/elements/ui/label";
 import { Switch } from "@/src/elements/ui/switch";
 import { useGetAllPermissionsQuery } from "@/src/redux/api/roleApi";
-import { CreateRoleRequest, Role } from "@/src/types/store";
+import { RoleFormProps } from "@/src/types/role";
 import { ArrowLeft, Check, Loader2, ShieldCheck } from "lucide-react";
 import { useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
 import { toast } from "sonner";
 import PermissionPicker from "./PermissionPicker";
-import { Badge } from "@/src/elements/ui/badge";
-import { ROUTES } from "@/src/constants";
 
-interface RoleFormProps {
-  initialValues?: Role & { permissions: string[] };
-  onSubmit: (values: CreateRoleRequest) => Promise<void>;
-  isLoading: boolean;
-  mode: "create" | "edit";
-}
-
-const RoleForm = ({ initialValues, onSubmit, isLoading, mode }: RoleFormProps) => {
+const RoleForm = ({
+  initialValues,
+  onSubmit,
+  isLoading,
+  mode,
+}: RoleFormProps) => {
   const router = useRouter();
-  const { data: permissionsData, isLoading: isLoadingPermissions } = useGetAllPermissionsQuery();
+  const { data: permissionsData, isLoading: isLoadingPermissions } =
+    useGetAllPermissionsQuery();
   const [name, setName] = useState("");
   const [description, setDescription] = useState("");
   const [isActive, setIsActive] = useState(true);
@@ -44,7 +43,8 @@ const RoleForm = ({ initialValues, onSubmit, isLoading, mode }: RoleFormProps) =
   const validate = () => {
     const errs: Record<string, string> = {};
     if (!name.trim()) errs.name = "Role name is required";
-    if (selectedPermissions.length === 0) errs.permissions = "Assign at least one permission";
+    if (selectedPermissions.length === 0)
+      errs.permissions = "Assign at least one permission";
     setErrors(errs);
     return Object.keys(errs).length === 0;
   };
@@ -103,13 +103,18 @@ const RoleForm = ({ initialValues, onSubmit, isLoading, mode }: RoleFormProps) =
                 <div className="w-10 h-10 rounded-lg bg-primary/10 flex items-center justify-center text-primary">
                   <ShieldCheck className="w-5 h-5" />
                 </div>
-                <h2 className="text-xl font-medium text-slate-800 dark:text-white">General Information</h2>
+                <h2 className="text-xl font-medium text-slate-800 dark:text-white">
+                  General Information
+                </h2>
               </div>
 
               <div className="space-y-6 pt-2">
                 {/* Role Name */}
                 <div className="space-y-2 flex flex-col">
-                  <Label htmlFor="role-name" className="text-sm font-bold text-slate-700 dark:text-slate-300">
+                  <Label
+                    htmlFor="role-name"
+                    className="text-sm font-bold text-slate-700 dark:text-slate-300"
+                  >
                     Role Display Name <span className="text-primary">*</span>
                   </Label>
                   <Input
@@ -123,12 +128,19 @@ const RoleForm = ({ initialValues, onSubmit, isLoading, mode }: RoleFormProps) =
                     placeholder="e.g. System Administrator"
                     disabled={initialValues?.system_reserved}
                   />
-                  {errors.name && <p className="text-red-500 text-xs font-bold mt-1 px-1">{errors.name}</p>}
+                  {errors.name && (
+                    <p className="text-red-500 text-xs font-bold mt-1 px-1">
+                      {errors.name}
+                    </p>
+                  )}
                 </div>
 
                 {/* Description */}
                 <div className="space-y-2 flex flex-col">
-                  <Label htmlFor="role-description" className="text-sm font-bold text-slate-700 dark:text-slate-300">
+                  <Label
+                    htmlFor="role-description"
+                    className="text-sm font-bold text-slate-700 dark:text-slate-300"
+                  >
                     Description
                   </Label>
                   <Input
@@ -143,11 +155,18 @@ const RoleForm = ({ initialValues, onSubmit, isLoading, mode }: RoleFormProps) =
                 {/* Active Status */}
                 <div
                   className="flex items-center justify-between p-4 bg-primary/5 dark:bg-primary/10 rounded-lg border border-primary/10 cursor-pointer group hover:bg-primary/10 transition-all"
-                  onClick={() => !initialValues?.system_reserved && setIsActive(!isActive)}
+                  onClick={() =>
+                    !initialValues?.system_reserved && setIsActive(!isActive)
+                  }
                 >
                   <div>
-                    <p className="font-bold text-slate-800 dark:text-white">Active Status</p>
-                    <p className="text-xs text-slate-400">Determines if this role is currently available for assignment</p>
+                    <p className="font-bold text-slate-800 dark:text-white">
+                      Active Status
+                    </p>
+                    <p className="text-xs text-slate-400">
+                      Determines if this role is currently available for
+                      assignment
+                    </p>
                   </div>
                   <Switch
                     checked={isActive}
@@ -169,10 +188,15 @@ const RoleForm = ({ initialValues, onSubmit, isLoading, mode }: RoleFormProps) =
                   <div className="w-10 h-10 rounded-lg bg-primary/10 flex items-center justify-center text-primary">
                     <Check className="w-5 h-5" />
                   </div>
-                  <h2 className="text-xl font-medium text-slate-800 dark:text-white">Access Permissions</h2>
+                  <h2 className="text-xl font-medium text-slate-800 dark:text-white">
+                    Access Permissions
+                  </h2>
                 </div>
                 {errors.permissions && (
-                  <Badge variant="destructive" className="animate-bounce bg-red-500/20 text-red-500">
+                  <Badge
+                    variant="destructive"
+                    className="animate-bounce bg-red-500/20 text-red-500"
+                  >
                     {errors.permissions}
                   </Badge>
                 )}
@@ -181,7 +205,9 @@ const RoleForm = ({ initialValues, onSubmit, isLoading, mode }: RoleFormProps) =
               {isLoadingPermissions ? (
                 <div className="flex flex-col items-center justify-center py-20 bg-slate-50/50 dark:bg-slate-900/50 rounded-lg border border-dashed border-slate-200 dark:border-slate-800">
                   <Loader2 className="h-10 w-10 animate-spin text-primary mb-4" />
-                  <p className="text-slate-400 font-medium">Loading permissions..</p>
+                  <p className="text-slate-400 font-medium">
+                    Loading permissions..
+                  </p>
                 </div>
               ) : (
                 <PermissionPicker
@@ -218,7 +244,11 @@ const RoleForm = ({ initialValues, onSubmit, isLoading, mode }: RoleFormProps) =
             ) : (
               <Check className="w-5 h-5" />
             )}
-            {isLoading ? "Working..." : mode === "create" ? "Create Role Now" : "Edit Role"}
+            {isLoading
+              ? "Working..."
+              : mode === "create"
+                ? "Create Role Now"
+                : "Edit Role"}
           </Button>
         </div>
       </form>

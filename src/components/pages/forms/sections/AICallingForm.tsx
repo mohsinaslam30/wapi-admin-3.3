@@ -140,7 +140,7 @@ export const AICallingForm: React.FC<SharedFormProps> = ({
             </div>
 
             <div className="space-y-6 mt-4">
-              <label className={labelClass}>Feature Capabilities List</label>
+              <Label className={labelClass}>Feature Capabilities List</Label>
               {featList.map((feat: any, idx: number) => (
                 <div
                   key={idx}

@@ -94,14 +94,14 @@ export function PageMediaUploadField({ label, value, onChange }: PageMediaUpload
               </Button>
             </div>
           </div>
-          <button
+          <Button variant="unstyled"
             type="button"
             onClick={() => onChange("")}
             className="p-1.5 bg-red-500 hover:bg-red-650 text-white rounded-full transition-all"
             title="Remove file"
           >
             <X size={14} />
-          </button>
+          </Button>
         </div>
       ) : (
         <div

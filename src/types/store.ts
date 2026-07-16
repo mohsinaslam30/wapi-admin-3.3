@@ -1,4 +1,6 @@
 import { Currency } from "./currencies";
+import { Role } from "./role";
+import { Tax } from "./tax";
 
 /* eslint-disable @typescript-eslint/no-explicit-any */
 export interface Faq {
@@ -831,36 +833,6 @@ export interface GetPagesParams {
 }
 
 
-
-export interface Tax {
-  _id: string;
-  name: string;
-  rate: number;
-  type: "percentage" | "fixed";
-  description?: string;
-  is_active: boolean;
-  created_at: string;
-  updated_at: string;
-}
-
-export interface GetTaxesParams {
-  page?: number;
-  limit?: number;
-  search?: string;
-  is_active?: boolean;
-  sort_by?: string;
-  sort_order?: "ASC" | "DESC";
-}
-
-export interface GetTaxesResponse {
-  success: boolean;
-  data: {
-    taxes: Tax[];
-    total: number;
-    pagination?: PaginationInfo;
-  };
-}
-
 export interface PermissionSubmodule {
   name: string;
   slug: string;
@@ -874,53 +846,4 @@ export interface Permission {
   submodules: PermissionSubmodule[];
   createdAt?: string;
   updatedAt?: string;
-}
-
-export interface Role {
-  _id: string;
-  name: string;
-  description?: string;
-  status: "active" | "inactive";
-  sort_order?: number;
-  system_reserved?: boolean;
-  permissions?: string[];
-  created_at?: string;
-  updated_at?: string;
-}
-
-export interface GetRolesParams {
-  page?: number;
-  limit?: number;
-  search?: string;
-  status?: string;
-  sort_by?: string;
-  sort_order?: string;
-}
-
-export interface GetRolesResponse {
-  success: boolean;
-  data: {
-    roles: Role[];
-    pagination: PaginationInfo;
-  };
-}
-
-export interface GetRoleByIdResponse {
-  success: boolean;
-  data: Role & { permissions: string[] };
-}
-
-export interface GetPermissionsResponse {
-  success: boolean;
-  data: Permission[];
-}
-
-export interface CreateRoleRequest {
-  name: string;
-  description?: string;
-  status?: "active" | "inactive";
-  sort_order?: number;
-  permissions?: string[];
-}
-
-export type UpdateRoleRequest = Partial<CreateRoleRequest>;
+} 

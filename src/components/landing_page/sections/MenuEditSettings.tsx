@@ -294,14 +294,14 @@ export const MenuEditSettings: React.FC<MenuEditSettingsProps> = ({
                 <Label className="text-[12px] font-bold text-gray-700 dark:text-gray-300">
                   {t("landing_page_header_path_label")}
                 </Label>
-                <button
+                <Button variant="unstyled"
                   type="button"
                   onClick={() => setIsInfoModalOpen(true)}
                   className="text-gray-400 hover:text-primary transition-colors focus:outline-none"
                   title="Path Information"
                 >
                   <HelpCircle size={14} />
-                </button>
+                </Button>
               </div>
               <Input
                 value={selectedItem.path}

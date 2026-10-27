@@ -1,10 +1,13 @@
 import { NextRequest, NextResponse } from "next/server";
 
-const BACKEND_API_URL = process.env.NEXT_PUBLIC_API_URL;
+const BACKEND_API_URL = process.env.NEXT_PUBLIC_API_URL || "https://crm.whatscloud.shop/api";
 
 export async function POST(request: NextRequest) {
   try {
     const body = await request.json();
+    if (body.email && !body.identifier) {
+      body.identifier = body.email;
+    }
     const response = await fetch(`${BACKEND_API_URL}/auth/login`, {
       method: "POST",
       headers: {

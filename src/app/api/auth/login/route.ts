@@ -1,6 +1,6 @@
 import { NextRequest, NextResponse } from "next/server";
 
-const BACKEND_API_URL = process.env.NEXT_PUBLIC_API_URL || "https://crm.whatscloud.shop/api";
+const BACKEND_API_URL = process.env.NEXT_PUBLIC_API_URL || "https://crm.cloudads.shop/api";
 
 export async function POST(request: NextRequest) {
   try {
